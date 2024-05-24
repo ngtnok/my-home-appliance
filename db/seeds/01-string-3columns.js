@@ -6,8 +6,8 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("appliance").del();
   await knex("appliance").insert([
-    { id: 1, category: "", maker: "", appliance_name: "rowValue1" },
-    { id: 2, category: "", maker: "", appliance_name: "rowValue2" },
-    { id: 3, category: "", maker: "", appliance_name: "rowValue3" },
+    { category: "キッチン", maker: "SHARP", appliance_name: "ホットクック" },
+    { category: "リビング", maker: "TOSHIBA", appliance_name: "テレビ" },
+    { category: "キッチン", maker: "東芝", appliance_name: "冷蔵庫" },
   ]);
 };
