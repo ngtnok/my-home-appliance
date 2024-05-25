@@ -3,9 +3,9 @@ const chaiHttp = require("chai-http");
 // import chai from "chai";
 // import chaiHttp from "chai-http";
 chai.use(chaiHttp);
-// const { setupServer } = require("../src/server");
+const { setupServer } = require("../src/server");
 // import { setupServer } from "../src/server";
-// const knex = require("../src/knex");
+const knex = require("../src/knex");
 // import knex from "../src/knex";
 
 const server = setupServer();
