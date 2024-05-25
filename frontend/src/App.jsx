@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Alert from "./components/Alert";
+import Edit from "./components/Edit";
 // import "./App.css";
 
 function App() {
@@ -16,11 +17,7 @@ function App() {
     <>
       <Form setList={setList} setAlert={setAlert} />
       <Alert alertMessage={alertMessage} />
-      <ul>
-        {list.map((obj, index) => (
-          <li key={index}>{obj.appliance_name}</li>
-        ))}
-      </ul>
+      <Edit list={list} />
     </>
   );
 }
