@@ -1,26 +1,30 @@
 import { useRef } from "react";
 
 function Form({ setList, setAlert }) {
-  const inputBox = useRef();
+  const inputCategory = useRef();
+  const inputMaker = useRef();
+  const inputName = useRef();
   const clickButton = () => {
     setAlert("");
-    if (inputBox.current.value) {
-      console.log("inputBox.current.value: ", inputBox.current.value);
+    if (inputName.current.value) {
+      console.log("inputName.current.value: ", inputName.current.value);
       fetch("/api/appliances", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          category: "hogeC",
-          maker: "hogeM",
-          appliance_name: inputBox.current.value,
+          category: inputCategory.current.value,
+          maker: inputMaker.current.value,
+          appliance_name: inputName.current.value,
         }),
       }).then((res) => {
         if (res.status === 400) {
           setAlert("もう登録されてる家電だよ");
         } else {
-          inputBox.current.value = "";
+          inputCategory.current.value = "";
+          inputMaker.current.value = "";
+          inputName.current.value = "";
         }
       });
     }
@@ -31,8 +35,12 @@ function Form({ setList, setAlert }) {
   };
   return (
     <>
+      <label>使ってるところ</label>
+      <input type="text" ref={inputCategory}></input>
+      <label>メーカー</label>
+      <input type="text" ref={inputMaker}></input>
       <label>家電の名前</label>
-      <input type="text" ref={inputBox} onKeyDown={handleKeyDown}></input>
+      <input type="text" ref={inputName} onKeyDown={handleKeyDown}></input>
       <button onClick={clickButton}>登録する</button>
     </>
   );

@@ -1,10 +1,15 @@
 function Edit({ list }) {
+  const trashButton = (event) => {
+    console.log(event);
+  };
   return (
     <ul>
       {list.map((obj, index) => (
         <li key={index}>
+          {obj.category}
+          {obj.maker}
           {obj.appliance_name}
-          <button>お疲れ様ぽい</button>
+          <button onClick={trashButton}>お疲れ様ぽい</button>
         </li>
       ))}
     </ul>
