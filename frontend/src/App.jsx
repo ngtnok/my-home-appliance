@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Alert from "./components/Alert";
-import Edit from "./components/Edit";
+import CollectByUseAt from "./components/CollectByUseAt";
 // import "./App.css";
 
 function App() {
@@ -12,12 +12,12 @@ function App() {
     fetch("/api/appliances")
       .then((res) => res.json())
       .then((data) => setList(data));
-  });
+  }, []);
   return (
     <>
       <Form setList={setList} setAlert={setAlert} />
       <Alert alertMessage={alertMessage} />
-      <Edit list={list} />
+      <CollectByUseAt list={list} />
     </>
   );
 }

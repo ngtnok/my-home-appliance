@@ -24,7 +24,11 @@ const setupServer = () => {
   app.use(allowCrossDomain);
 
   app.get("/api/appliances", async (req, res) => {
-    const appliance = await knex.select().from("appliance");
+    const appliance = await knex
+      .select()
+      .from("appliance")
+      // .orderBy("use_at")
+      .orderBy("id");
     res.status(200).send(appliance);
   });
   app.post("/api/appliances", async (req, res) => {
@@ -50,11 +54,11 @@ const setupServer = () => {
   });
 
   app.delete("/api/appliances", async (req, res) => {
-    const { appliance_name } = req.body;
+    const { id, appliance_name } = req.body;
     console.log("appliance_name: ", appliance_name);
     const deleteTarget = await knex("appliance")
       .select()
-      .where({ appliance_name });
+      .where({ id, appliance_name });
     if (!deleteTarget.length) {
       return res.status(404).send();
     }

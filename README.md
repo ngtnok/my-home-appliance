@@ -31,9 +31,9 @@ DB_USER
 
 ### 基本機能
 
-- [ ] カテゴリ別に表示する
-- [ ] 持ってる家電を登録できる
-- [ ] 登録した家電を削除できる
+- [x] 使っている場所ごとに表示する
+- [x] 持ってる家電を登録できる
+- [x] 登録した家電を削除できる
 - [ ] 登録した家電の名前を変更できる
 
 ### 追加機能
@@ -49,7 +49,7 @@ table: appliance
 | column         | type       | option  |
 | :------------- | :--------- | :------ |
 | id             | increments | PK      |
-| category       | string     |         |
+| use_at         | string     |         |
 | maker          | string     |         |
 | appliance_name | string     | notNull |
 
