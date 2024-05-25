@@ -27,6 +27,27 @@ const setupServer = () => {
     const appliance = await knex.select().from("appliance");
     res.status(200).send(appliance);
   });
+  app.post("/api/appliances", async (req, res) => {
+    const { category, maker, appliance_name } = req.body;
+    const getAlreadySameName = await knex
+      .select()
+      .from("appliance")
+      .where("appliance_name", appliance_name);
+    // console.log("already", getAlreadySameName);
+    if (!getAlreadySameName.length) {
+      console.log("is not already");
+      await knex
+        .insert({ category, maker, appliance_name }, ["id"])
+        .into("appliance");
+      const newAppliance = await knex
+        .select()
+        .from("appliance")
+        .where("appliance_name", appliance_name)
+        .first();
+      res.status(201).send(newAppliance);
+    }
+    res.status(400).send();
+  });
 
   return app;
 };
