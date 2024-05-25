@@ -1,20 +1,20 @@
 import { useRef } from "react";
 
 function Form({ setList, setAlert }) {
-  const inputCategory = useRef();
+  const inputUseAt = useRef();
   const inputMaker = useRef();
   const inputName = useRef();
   const clickButton = () => {
-    setAlert("");
     if (inputName.current.value) {
-      console.log("inputName.current.value: ", inputName.current.value);
+      // setAlert("");
+      // console.log("inputName.current.value: ", inputName.current.value);
       fetch("/api/appliances", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          category: inputCategory.current.value,
+          use_at: inputUseAt.current.value,
           maker: inputMaker.current.value,
           appliance_name: inputName.current.value,
         }),
@@ -22,11 +22,14 @@ function Form({ setList, setAlert }) {
         if (res.status === 400) {
           setAlert("もう登録されてる家電だよ");
         } else {
-          inputCategory.current.value = "";
+          inputUseAt.current.value = "";
           inputMaker.current.value = "";
           inputName.current.value = "";
         }
       });
+      setAlert("");
+    } else {
+      setAlert("家電の名前は入力必須だよ");
     }
   };
   const handleKeyDown = (event) => {
@@ -36,7 +39,7 @@ function Form({ setList, setAlert }) {
   return (
     <>
       <label>使ってるところ</label>
-      <input type="text" ref={inputCategory}></input>
+      <input type="text" ref={inputUseAt}></input>
       <label>メーカー</label>
       <input type="text" ref={inputMaker}></input>
       <label>家電の名前</label>

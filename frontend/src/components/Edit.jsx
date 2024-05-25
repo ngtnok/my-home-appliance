@@ -6,7 +6,7 @@ function Edit({ list }) {
     <ul>
       {list.map((obj, index) => (
         <li key={index}>
-          {obj.category}
+          {obj.use_at}
           {obj.maker}
           {obj.appliance_name}
           <button onClick={trashButton}>お疲れ様ぽい</button>
