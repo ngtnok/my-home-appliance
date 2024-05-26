@@ -1,7 +1,7 @@
 import EditButton from "./EditButton";
 
 function Appliance({
-  appliance_id,
+  id,
   maker,
   appliance_name,
   // triggered,
@@ -18,12 +18,8 @@ function Appliance({
   // };
   return (
     <div>
-      <EditButton
-        appliance_id={appliance_id}
-        setView={setView}
-        selectAppliance={selectAppliance}
-      />
-      {appliance_id}
+      <EditButton id={id} setView={setView} selectAppliance={selectAppliance} />
+      {id}
       {maker}
       {appliance_name}
       {/* <button onClick={clickTrash}>お疲れぽん</button> */}

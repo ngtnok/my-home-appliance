@@ -11,7 +11,7 @@ function App() {
   // const [list, setList] = useState([]);
   // const [alertMessage, setAlert] = useState();
   // const [triggerListReload, triggered] = useState(0);
-  const [selectedAppliance, selectAppliance] = useState();
+  const [selectedId, selectAppliance] = useState();
   // useEffect(() => {
   //   fetch("/api/appliances")
   //     .then((res) => res.json())
@@ -29,7 +29,7 @@ function App() {
       ) : (
         <EditForm
           setView={setView}
-          selectedAppliance={selectedAppliance}
+          selectedId={selectedId}
           selectAppliance={selectAppliance}
         />
       )}

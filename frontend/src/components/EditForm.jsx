@@ -4,13 +4,14 @@ import Form from "./Form";
 import Alert from "./Alert";
 import Cancel from "./Cancel";
 
-function EditForm({ setView, selectedAppliance, selectAppliance }) {
+function EditForm({ setView, selectedId, selectAppliance }) {
   const [alertMessage, setAlert] = useState();
   return (
     <>
       <Form
         setView={setView}
-        selectedAppliance={selectedAppliance}
+        selectedId={selectedId}
+        selectAppliance={selectAppliance}
         setAlert={setAlert}
       />
       <Cancel setView={setView} selectAppliance={selectAppliance} />

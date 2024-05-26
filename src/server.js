@@ -31,6 +31,17 @@ const setupServer = () => {
       .orderBy("id");
     res.status(200).send(appliance);
   });
+  app.get("/api/appliances/:id", async (req, res) => {
+    const appliance = await knex
+      .select()
+      .from("appliance")
+      .where("id", req.params.id);
+    // .first();
+    if (appliance.length) {
+      return res.status(200).send(appliance[0]);
+    }
+    res.status(404).send();
+  });
   app.post("/api/appliances", async (req, res) => {
     const { use_at, maker, appliance_name } = req.body;
     const getAlreadySameName = await knex
@@ -52,17 +63,31 @@ const setupServer = () => {
     }
     res.status(400).send();
   });
-
+  app.patch("/api/appliances", async (req, res) => {
+    const id = req.body.id;
+    const { use_at, maker, appliance_name } = req.body;
+    if (!!use_at) {
+      await knex("appliance").where({ id }).update({ use_at });
+    }
+    if (!!maker) {
+      await knex("appliance").where({ id }).update({ maker });
+    }
+    if (!!appliance_name) {
+      await knex("appliance").where({ id }).update({ appliance_name });
+    }
+    const updateData = await knex("appliance").where({ id }).select().first();
+    res.status(200).send(updateData);
+    // res.end();
+  });
   app.delete("/api/appliances", async (req, res) => {
-    const { id, appliance_name } = req.body;
-    console.log("appliance_name: ", appliance_name);
-    const deleteTarget = await knex("appliance")
-      .select()
-      .where({ id, appliance_name });
+    const { id } = req.body;
+    // console.log("id: ", id);
+    // console.log("appliance_name: ", appliance_name);
+    const deleteTarget = await knex("appliance").select().where({ id });
     if (!deleteTarget.length) {
       return res.status(404).send();
     }
-    await knex("appliance").where({ appliance_name }).first().del();
+    await knex("appliance").where({ id }).first().del();
     res.status(204).send();
   });
 
