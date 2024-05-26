@@ -36,7 +36,7 @@ const setupServer = () => {
     const getAlreadySameName = await knex
       .select()
       .from("appliance")
-      .where("appliance_name", appliance_name);
+      .where({ appliance_name });
     // console.log("already", getAlreadySameName);
     if (!getAlreadySameName.length) {
       // console.log("is not already");
