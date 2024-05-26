@@ -3,11 +3,12 @@ import Appliance from "./Appliance";
 
 import uniq from "uniq";
 
-function CollectByUseAt({ list }) {
+function CollectByUseAt({ list, triggered }) {
   const places = uniq(list.map((obj) => obj.use_at));
-  const trashButton = (event) => {
-    console.log(event);
-  };
+  // const trashButton = (event) => {
+  //   console.log(event);
+  // triggered();
+  // };
   return (
     <>
       {places.map((place) => {
@@ -19,6 +20,7 @@ function CollectByUseAt({ list }) {
                 key={obj.appliance_name}
                 {...obj}
                 appliance_id={obj.id}
+                triggered={triggered}
               />
             ))}
           </Container>

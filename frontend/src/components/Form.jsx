@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-function Form({ setList, setAlert }) {
+function Form({ setList, setAlert, triggered }) {
   const inputUseAt = useRef();
   const inputMaker = useRef();
   const inputName = useRef();
@@ -22,6 +22,7 @@ function Form({ setList, setAlert }) {
         if (res.status === 400) {
           setAlert("もう登録されてる家電だよ");
         } else {
+          triggered((prev) => prev + 1);
           inputUseAt.current.value = "";
           inputMaker.current.value = "";
           inputName.current.value = "";
