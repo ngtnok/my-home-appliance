@@ -73,7 +73,7 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
           maker: inputMaker.current.value,
           appliance_name: inputName.current.value,
           purchase_date_type_date: new Date(year, month - 1, day, 9, 0, 0),
-          warranty_period: inputWarrantyPeriod.current.value,
+          warranty_period: String(inputWarrantyPeriod.current.value),
         }),
       }).then((res) => {
         setView("CollectByUseAt");

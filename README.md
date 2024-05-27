@@ -42,6 +42,7 @@ DB_USER
 
 ### 追加機能
 
+- [x] 10 年以上使用している家電にアラート表示する
 - [ ] 保証期間切れが迫っているアラートする
 - [ ] ユーザー認証
 - [x] デプロイ
@@ -50,12 +51,14 @@ DB_USER
 db:my-home-appliance
 table: appliance
 
-| column         | type       | option  |
-| :------------- | :--------- | :------ |
-| id             | increments | PK      |
-| use_at         | string     |         |
-| maker          | string     |         |
-| appliance_name | string     | notNull |
+| column                  | type       | option  |
+| :---------------------- | :--------- | :------ |
+| id                      | increments | PK      |
+| use_at                  | string     |         |
+| maker                   | string     |         |
+| appliance_name          | string     | notNull |
+| purchase_date_type_date | date       |         |
+| warranty_period         | bigint     |         |
 
 カテゴリ
 メーカー
