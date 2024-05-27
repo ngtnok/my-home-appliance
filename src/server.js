@@ -3,7 +3,12 @@ const app = express();
 const knex = require("./knex");
 
 const setupServer = () => {
-  app.use("/", express.static(__dirname + "/frontend/public/dist"));
+  app.use(
+    "/",
+    express.static(
+      __dirname.split("/").slice(0, -1).join("/") + "/frontend/dist"
+    )
+  );
   app.use(express.json());
 
   const allowCrossDomain = function (req, res, next) {
