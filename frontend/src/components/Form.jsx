@@ -1,29 +1,58 @@
 import { useEffect, useRef } from "react";
 import DeleteButton from "./DeleteButton";
+import "./Form.css";
 
 // function Form({ setList, setAlert, triggered }) {
 function Form({ setView, selectedId, selectAppliance, setAlert }) {
   const inputUseAt = useRef();
   const inputMaker = useRef();
   const inputName = useRef();
-  const inputBoxUseAt = <input type="text" ref={inputUseAt}></input>;
-  const inputBoxMaker = <input type="text" ref={inputMaker}></input>;
-  const inputBoxName = <input type="text" ref={inputName}></input>;
+  const inputPurchaseDate = useRef();
+  const inputWarrantyPeriod = useRef();
+  const [inputBoxUseAt, inputBoxMaker, inputBoxName] = [
+    inputUseAt,
+    inputMaker,
+    inputName,
+  ].map((refName, i) => <input type="text" key={i} ref={refName} />);
+  const inputBoxPurchaseDate = (
+    <input
+      type="date"
+      min="1988-11-11"
+      max="2100-12-31"
+      ref={inputPurchaseDate}
+    />
+  );
+  const inputBoxWarrantyPeriod = (
+    <input type="number" min="0" max="100" ref={inputWarrantyPeriod} />
+  );
 
   useEffect(() => {
     if (selectedId) {
       fetch(`/api/appliances/${selectedId}`)
         .then((res) => res.json())
         .then((data) => {
-          const { use_at, maker, appliance_name } = data;
+          const {
+            use_at,
+            maker,
+            appliance_name,
+            purchase_date_type_date,
+            warranty_period,
+          } = data;
+          console.log("purchase_date_type_date: ", purchase_date_type_date);
+          console.log("warranty_period: ", warranty_period);
           inputUseAt.current.value = use_at;
           inputMaker.current.value = maker;
           inputName.current.value = appliance_name;
+          inputPurchaseDate.current.value =
+            purchase_date_type_date && purchase_date_type_date.split("T")[0];
+          inputWarrantyPeriod.current.value =
+            warranty_period && Number(warranty_period);
         });
     }
   }, [selectedId]);
 
   const clickButton = () => {
+    console.log("inputPurchase", inputPurchaseDate.current.value);
     //! 必須項目が入力されているかチェック
     if (!inputName.current.value) {
       return setAlert("家電の名前は入力必須だよ");
@@ -42,16 +71,18 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
           use_at: inputUseAt.current.value,
           maker: inputMaker.current.value,
           appliance_name: inputName.current.value,
+          purchase_date_type_date: new Date(inputPurchaseDate.current.value),
+          // "yyyy-MM-dd"
+          // // { locale: ja }
+          // ),
+          warranty_period: inputWarrantyPeriod.current.value,
         }),
       }).then((res) => {
-        // if (res.status === 400) {
-        //   setAlert("もう登録されてる家電だよ");
-        // } else {
         setView("CollectByUseAt");
         selectAppliance("");
-        inputUseAt.current.value = "";
-        inputMaker.current.value = "";
-        inputName.current.value = "";
+        // inputUseAt.current.value = "";
+        // inputMaker.current.value = "";
+        // inputName.current.value = "";
         // }
       });
     } else {
@@ -65,6 +96,8 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
           use_at: inputUseAt.current.value,
           maker: inputMaker.current.value,
           appliance_name: inputName.current.value,
+          purchase_date_type_date: new Date(inputPurchaseDate.current.value),
+          warranty_period: String(inputWarrantyPeriod.current.value),
         }),
       }).then((res) => {
         if (res.status === 400) {
@@ -72,63 +105,28 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
         } else {
           setView("CollectByUseAt");
           selectAppliance("");
-          inputUseAt.current.value = "";
-          inputMaker.current.value = "";
-          inputName.current.value = "";
+          // inputUseAt.current.value = "";
+          // inputMaker.current.value = "";
+          // inputName.current.value = "";
         }
       });
     }
-    //! response結果に応じて画面処理
-    //! 登録完了したらselectedをリセットする
-
-    // if (inputName.current.value) {
-    // setAlert("");
-    // console.log("inputName.current.value: ", inputName.current.value);
-    // fetch("/api/appliances", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     use_at: inputUseAt.current.value,
-    //     maker: inputMaker.current.value,
-    //     appliance_name: inputName.current.value,
-    //   }),
-    // }).then((res) => {
-    //   if (res.status === 400) {
-    //     setAlert("もう登録されてる家電だよ");
-    //   } else {
-    //     setView("CollectByUseAt");
-    //     // triggered((prev) => prev + 1);
-    //     inputUseAt.current.value = "";
-    //     inputMaker.current.value = "";
-    //     inputName.current.value = "";
-    //   }
-    // });
-    // setAlert("");
-    // } else {
-    //   setAlert("家電の名前は入力必須だよ");
-    // }
   };
-  // const handleKeyDown = (event) => {
-  // ひらがな確定のとき、登録実行の挙動しちゃうので、保留
-  // if (event.key === "Enter" && !event.isComposing) clickButton();
-  // };
   return (
-    <>
+    <div className="form">
       <label>使ってるところ</label>
       {inputBoxUseAt}
-      {/* <input type="text" ref={inputUseAt}></input> */}
       <label>メーカー</label>
       {inputBoxMaker}
-      {/* <input type="text" ref={inputMaker}></input> */}
       <label>家電の名前</label>
       {inputBoxName}
-      {/* <input type="text" ref={inputName} onKeyDown={handleKeyDown}></input> */}
-      <button onClick={clickButton}>登録する</button>
-      {/* {selectedId} */}
+      <label>購入日</label>
+      {inputBoxPurchaseDate}
+      <label>保証期間(年)</label>
+      {inputBoxWarrantyPeriod}
+      <input type="button" onClick={clickButton} value="追加／更新" />
       {selectedId && <DeleteButton selectedId={selectedId} setView={setView} />}
-    </>
+    </div>
   );
 }
 

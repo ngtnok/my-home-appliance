@@ -30,5 +30,31 @@ exports.seed = async function (knex) {
       // purchase_date: 1264819200000,
       purchase_date_type_date: "2010-01-30",
     },
+    {
+      use_at: "パントリー",
+      appliance_name: "冷凍庫",
+      // purchase_date: 1264819200000,
+      purchase_date_type_date: "2012-01-30",
+    },
+    {
+      use_at: "自分ルーム",
+      maker: "logi",
+      appliance_name: "K855キーボードちゃん",
+      purchase_date_type_date: "2023-03-10",
+      warranty_period: 1,
+    },
+    {
+      use_at: "洗面台",
+      maker: "PANASONIC",
+      appliance_name: "ドライヤー",
+      purchase_date_type_date: "2021-03-27",
+    },
+    {
+      use_at: "洗面台",
+      maker: "HITACHI",
+      appliance_name: "洗濯機",
+      purchase_date_type_date: "2019-10-01",
+      warranty_period: 5,
+    },
   ]);
 };

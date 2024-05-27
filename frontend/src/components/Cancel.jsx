@@ -3,6 +3,6 @@ function Cancel({ setView, selectAppliance }) {
     selectAppliance("");
     setView("CollectByUseAt");
   };
-  return <button onClick={cancelButton}>編集をやめる</button>;
+  return <input type="button" onClick={cancelButton} value="編集をやめる" />;
 }
 export default Cancel;

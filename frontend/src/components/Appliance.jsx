@@ -22,7 +22,7 @@ function Appliance({
   return (
     <div className={classAlert}>
       <EditButton id={id} setView={setView} selectAppliance={selectAppliance} />
-      {/* {id} */}
+      {id}
       {maker}
       {appliance_name}
       {!!classAlert && `購入から${num}年経過しています`}

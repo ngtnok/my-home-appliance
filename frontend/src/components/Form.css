@@ -1,0 +1,8 @@
+.form {
+  display: flex;
+  flex-flow: column;
+}
+input {
+  height: 25px;
+  width: 30%;
+}

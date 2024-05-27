@@ -70,7 +70,13 @@ const setupServer = () => {
   });
   app.patch("/api/appliances", async (req, res) => {
     const id = req.body.id;
-    const { use_at, maker, appliance_name } = req.body;
+    const {
+      use_at,
+      maker,
+      appliance_name,
+      purchase_date_type_date,
+      warranty_period,
+    } = req.body;
     if (!!use_at) {
       await knex("appliance").where({ id }).update({ use_at });
     }
@@ -80,8 +86,14 @@ const setupServer = () => {
     if (!!appliance_name) {
       await knex("appliance").where({ id }).update({ appliance_name });
     }
-    const updateData = await knex("appliance").where({ id }).select().first();
-    res.status(200).send(updateData);
+    if (!!purchase_date_type_date) {
+      await knex("appliance").where({ id }).update({ purchase_date_type_date });
+    }
+    if (!!warranty_period) {
+      await knex("appliance").where({ id }).update({ warranty_period });
+    }
+    const updateData = await knex("appliance").where({ id }).select();
+    res.status(200).send(updateData[0]);
     // res.end();
   });
   app.delete("/api/appliances", async (req, res) => {

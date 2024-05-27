@@ -8,6 +8,6 @@ function DeleteButton({ selectedId, setView }) {
     setView("CollectByUseAt");
     // selectedId;
   };
-  return <button onClick={clickDelete}>お疲れポイ</button>;
+  return <input type="button" onClick={clickDelete} value="今までありがとう" />;
 }
 export default DeleteButton;

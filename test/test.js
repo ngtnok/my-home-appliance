@@ -24,7 +24,7 @@ describe("knex server", () => {
       });
     });
   });
-  describe("GET:/api/appliance/:id", () => {
+  describe("GET:/api/appliances/:id", () => {
     it("指定されたidの家電情報を返す", (done) => {
       request.get("/api/appliances/29").end((err, res) => {
         expect(err).to.be.null;
@@ -70,22 +70,40 @@ describe("knex server", () => {
   });
   describe("PATCH:/api/appliances", () => {
     it("家電情報を更新する", (done) => {
-      const patchData = { id: 29, appliance_name: "M2mac-chan" };
+      const patchData = {
+        id: 41,
+        appliance_name: "K855キーボードちゃん",
+        purchase_date_type_date: new Date(2023, 2, 10, 9, 0, 0), //"2023-02-10T00:00:00.000Z"),
+        warranty_period: "2",
+      };
       request
         .patch("/api/appliances")
         .send(patchData)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
-          // done();
+          console.log(
+            new Date(res.body.purchase_date_type_date) instanceof Date
+          );
+          console.log(typeof new Date(res.body.purchase_date_type_date));
+          expect(new Date(res.body.purchase_date_type_date).getTime()).to.equal(
+            patchData.purchase_date_type_date.getTime() - 9 * 60 * 60 * 1000
+          );
+          expect(res.body.warranty_period).to.equal(patchData.warranty_period);
+
+          done();
         });
-      request.get(`/api/appliances/${patchData.id}`).end((err, res) => {
-        expect(err).to.be.null;
-        expect(res).to.have.status(200);
-        console.log(res.body);
-        expect(res.body.appliance_name).to.equal(patchData.appliance_name);
-        done();
-      });
+      // request.get(`/api/appliances/${patchData.id}`).end((err, res) => {
+      //   expect(err).to.be.null;
+      //   expect(res).to.have.status(200);
+      //   console.log(res.body);
+      //   expect(res.body.appliance_name).to.equal(patchData.appliance_name);
+      //   expect(res.body.purchase_date_type_date).to.equal(
+      //     patchData.purchase_date_type_date
+      //   );
+      //   expect(res.body.warranty_period).to.equal(patchData.warranty_period);
+      //   done();
+      // });
       // request.patch()
     });
   });
