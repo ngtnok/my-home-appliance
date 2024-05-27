@@ -1,3 +1,14 @@
+.maker {
+  width: 180px;
+}
+.name {
+  width: 200px;
+}
+
+.alertMessage {
+  width: 250px;
+}
+
 .alert_service_life {
   background-color: #fcf2d4;
 }

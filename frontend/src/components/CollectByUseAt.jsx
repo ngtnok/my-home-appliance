@@ -4,10 +4,8 @@ import Container from "./Container";
 import Appliance from "./Appliance";
 
 import uniq from "uniq";
-// import { select } from "../../../src/knex";
 
 function CollectByUseAt({ setView, selectAppliance }) {
-  // const [triggerListReload, triggered] = useState(0);
   const [list, setList] = useState([]);
   const places = uniq(list.map((obj) => obj.use_at));
 
@@ -15,7 +13,6 @@ function CollectByUseAt({ setView, selectAppliance }) {
     fetch("/api/appliances")
       .then((res) => res.json())
       .then((data) => setList(data));
-    // }, [triggerListReload]);
   }, []);
 
   return (
@@ -28,8 +25,6 @@ function CollectByUseAt({ setView, selectAppliance }) {
               <Appliance
                 key={obj.id}
                 {...obj}
-                // appliance_id={obj.id}
-                // triggered={triggered}
                 setView={setView}
                 selectAppliance={selectAppliance}
               />
