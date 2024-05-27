@@ -48,7 +48,13 @@ const setupServer = () => {
     res.status(404).send();
   });
   app.post("/api/appliances", async (req, res) => {
-    const { use_at, maker, appliance_name } = req.body;
+    const {
+      use_at,
+      maker,
+      appliance_name,
+      purchase_date_type_date,
+      warranty_period,
+    } = req.body;
     const getAlreadySameName = await knex
       .select()
       .from("appliance")
@@ -57,7 +63,16 @@ const setupServer = () => {
     if (!getAlreadySameName.length) {
       // console.log("is not already");
       await knex
-        .insert({ use_at, maker, appliance_name }, ["id"])
+        .insert(
+          {
+            use_at,
+            maker,
+            appliance_name,
+            purchase_date_type_date,
+            warranty_period,
+          },
+          ["id"]
+        )
         .into("appliance");
       const newAppliance = await knex
         .select()

@@ -38,8 +38,6 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
             purchase_date_type_date,
             warranty_period,
           } = data;
-          console.log("purchase_date_type_date: ", purchase_date_type_date);
-          console.log("warranty_period: ", warranty_period);
           inputUseAt.current.value = use_at;
           inputMaker.current.value = maker;
           inputName.current.value = appliance_name;
@@ -52,13 +50,16 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
   }, [selectedId]);
 
   const clickButton = () => {
-    console.log("inputPurchase", inputPurchaseDate.current.value);
+    console.log("inputPurchase", typeof inputPurchaseDate.current.value);
     //! 必須項目が入力されているかチェック
     if (!inputName.current.value) {
       return setAlert("家電の名前は入力必須だよ");
     }
     setAlert("");
     //! PATCHかPOSTか判別
+    const [year, month, day] =
+      inputPurchaseDate.current.value &&
+      inputPurchaseDate.current.value.split("T")[0].split("-");
     if (selectedId) {
       //! PATCH
       fetch("/api/appliances", {
@@ -71,10 +72,7 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
           use_at: inputUseAt.current.value,
           maker: inputMaker.current.value,
           appliance_name: inputName.current.value,
-          purchase_date_type_date: new Date(inputPurchaseDate.current.value),
-          // "yyyy-MM-dd"
-          // // { locale: ja }
-          // ),
+          purchase_date_type_date: new Date(year, month - 1, day, 9, 0, 0),
           warranty_period: inputWarrantyPeriod.current.value,
         }),
       }).then((res) => {
@@ -96,7 +94,7 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
           use_at: inputUseAt.current.value,
           maker: inputMaker.current.value,
           appliance_name: inputName.current.value,
-          purchase_date_type_date: new Date(inputPurchaseDate.current.value),
+          purchase_date_type_date: new Date(year, month - 1, day, 9, 0, 0),
           warranty_period: String(inputWarrantyPeriod.current.value),
         }),
       }).then((res) => {

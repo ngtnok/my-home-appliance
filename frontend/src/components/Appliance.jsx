@@ -3,7 +3,7 @@ import moment from "moment";
 import EditButton from "./EditButton";
 
 import "./Appliance.css";
-// moment.locale("ja");
+
 function Appliance({
   id,
   maker,
@@ -14,7 +14,6 @@ function Appliance({
   selectAppliance,
 }) {
   // const datePurchase = Date(purchase_date_type_date); //).fromNow();
-  // console.log("purchase_date_type_date: ", purchase_date_type_date);
   const datePurchase = moment(purchase_date_type_date).fromNow().split(" ");
   const [num, yearOrMonthOrDay] = datePurchase;
   const classAlert =
