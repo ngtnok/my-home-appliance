@@ -19,22 +19,26 @@ DB_USER
 
 ### コマンド一覧
 
-| ディレクトリ | command         | 実行内容                               | 元のコマンド                                                              |
-| :----------- | :-------------- | :------------------------------------- | :------------------------------------------------------------------------ |
-|              | npm run dev     | バックエンドサーバー起動（開発モード） | nodemon ./src/index.js                                                    |
-|              | npm run test    | バックエンドサーバーテスト実行         | mocha test                                                                |
-|              | npm run start   | バックエンドサーバー起動               | node ./src/index.js                                                       |
-| frontend     | npm run dev     | フロントエンドサーバー起動             | vite                                                                      |
-| frontend     | npm run build   | ビルド                                 | vite build                                                                |
-| frontend     | npm run lint    | linter 適用                            | eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 |
-| frontend     | npm run preview |                                        | vite preview                                                              |
+| ディレクトリ      | command           | 実行内容                               | 元のコマンド                                                              |
+| :---------------- | :---------------- | :------------------------------------- | :------------------------------------------------------------------------ |
+| my-home-appliance | npm i             | 必要なパッケージのインストール         |                                                                           |
+|                   | npm run dev       | バックエンドサーバー起動（開発モード） | nodemon ./src/index.js                                                    |
+|                   | npm run test      | バックエンドサーバーテスト実行         | mocha test                                                                |
+|                   | npm run start     | バックエンドサーバー起動               | node ./src/index.js                                                       |
+|                   | npm run migration | マイグレーション実行                   | npx knex migrate:latest                                                   |
+|                   | npm run seed      | シードデータ実行                       | npx knex seed:run                                                         |
+| frontend          | npm i             | 必要なパッケージのインストール         |                                                                           |
+| frontend          | npm run dev       | フロントエンドサーバー起動             | vite                                                                      |
+| frontend          | npm run build     | ビルド                                 | vite build                                                                |
+| frontend          | npm run lint      | linter 適用                            | eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 |
+| frontend          | npm run preview   |                                        | vite preview                                                              |
 
 ### 基本機能
 
 - [x] 使っている場所ごとに表示する
 - [x] 持ってる家電を登録できる
 - [x] 登録した家電を削除できる
-- [ ] 登録した家電の名前を変更できる
+- [x] 登録した家電の名前を変更できる
 
 ### 追加機能
 
