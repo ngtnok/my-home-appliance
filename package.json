@@ -8,7 +8,9 @@
     "test": "mocha test",
     "migration": "npx knex migrate:latest",
     "seed": "npx knex seed:run",
-    "build": "npm install && npm run migration",
+    "vite-install": "npm install --prefix ./frontend",
+    "vite-build": "npm run build --prefix ./frontend",
+    "build": "npm install && npm run migration && npm run vite-install && npm run vite-build",
     "start": "node ./src/index.js"
   },
   "keywords": [],
