@@ -112,7 +112,7 @@ function Form({ setView, selectedId, selectAppliance, setAlert }) {
   };
   return (
     <div className="form">
-      <label>使ってるところ</label>
+      <label>使用場所</label>
       {inputBoxUseAt}
       <label>メーカー</label>
       {inputBoxMaker}
